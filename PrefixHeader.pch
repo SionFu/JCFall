@@ -1,0 +1,70 @@
+//
+//  PrefixHeader.pch
+//  微享圈
+//
+//  Created by Mac on 15/12/3.
+//  Copyright © 2015年 Mac. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_8_0
+#warning "This project uses features only available in iOS SDK 8.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+
+#ifdef DEBUG // 处于开发阶段
+#define HCLog(...) NSLog(__VA_ARGS__)
+#else // 处于发布阶段
+#define HCLog(...)
+#endif
+
+#define iOS9 ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0)
+#define iOS8 ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0)
+
+// RGB颜色
+#define HCColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+// 随机色
+#define HCRandomColor HCColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+#define HCSystemHeight LL_ScreenHeight - LL_TabbarSafeBottomMargin
+#define HCSystemWidth  LL_ScreenWidth
+#define alert(__MSG){MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];[alert showAlertWith:@__MSG];}
+
+//适配 iPhoneX
+// UIScreen width.
+#define  LL_ScreenWidth   [UIScreen mainScreen].bounds.size.width
+
+// UIScreen height.
+#define  LL_ScreenHeight  [UIScreen mainScreen].bounds.size.height
+// iPhone X
+#define  LL_iPhoneX (LL_ScreenHeight == 812.f ? YES : NO)
+
+// Status bar height.
+#define  LL_StatusBarHeight      (LL_iPhoneX ? 44.f : 20.f)
+
+// Navigation bar height.
+#define  LL_NavigationBarHeight  44.f
+
+// Tabbar height.
+#define  LL_TabbarHeight         (LL_iPhoneX ? (49.f+34.f) : 49.f)
+
+// Tabbar safe bottom margin.
+#define  LL_TabbarSafeBottomMargin         (LL_iPhoneX ? 45.f : 0.f)
+
+// Status bar & navigation bar height.
+#define  LL_StatusBarAndNavigationBarHeight  (LL_iPhoneX ? 88.f : 64.f)
+#define LL_ViewSafeAreInsets(view) ({UIEdgeInsets insets; if(@available(iOS 11.0, *)) {insets = view.safeAreaInsets;} else {insets = UIEdgeInsetsZero;} insets;})
+//API
+//#define apiHttp @"http://sbyssh.86tudi.cn" //安卓使用接口
+//#define apiHttp @"http://sbyssh.86tudi.com" //iOS使用接口
+#define apiHttp @"http://ios.sbyssh.com" //iOS使用接口
+//判断是否为测试账号
+#define BeTry ([[Account account].openid isEqualToString:@"obSNav7-mqJ-F6ZLD31dLUvqovlE"])
+#endif /* PrefixHeader_pch */
+
